@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Contact Page";
+}
+
+<!DOCTYPE html>
+<body class="striped-background">
+    <h2 style="text-align: left">Contact Form</h2>
+    <form class="form" style="float: left; padding-top: 10px; width: 65%">
+        <p class="name">
+            <label for="name" style="color: white">Name</label>
+            <input type="text" name="name" id="name" placeholder="First and Last name" />
+        </p>
+
+        <p class="email">
+            <label for="email" style="color: white">Email</label>
+            <input type="text" name="email" id="email" placeholder="mail@example.com" />
+        </p>
+
+        <p class="text">
+            <label style="color: white">Content</label>
+            <textarea name="text" placeholder="Write something to us"></textarea>
+        </p>
+
+        <p class="submit">
+            <input type="submit" value="Send" />
+        </p>
+    </form>
+    <p style="float: right; width: 30%">
+        <a href="https://bg-bg.facebook.com/PokemonGO/" target="_blank">
+            <img src="~/background/facebook.png" />
+        </a>
+        <br />
+        <a href="https://twitter.com/pokemongonews" target="_blank">
+            <img src="~/background/twitter.png" />
+        </a>
+        <br />
+        <a href="https://www.youtube.com/channel/UCFctpiB_Hnlk3ejWfHqSm6Q" target="_blank">
+            <img src="~/background/youtube.png" />
+        </a>
+    </p>
+</body>

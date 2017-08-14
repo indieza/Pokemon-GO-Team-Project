@@ -1,0 +1,149 @@
+﻿@using WebApp.Models;
+@{
+    ViewBag.Title = "Pokédex Page";
+}
+
+@model List<Pokemon>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+</head>
+<body class="striped-background">
+    <div class="pokedex-area">
+        <br />
+        @for (int i = 0; i < Model.Count; i += 4)
+        {
+            <div class="pokedex-row">
+                @for (int j = 0; j < 4 && i + j < Model.Count; j++)
+                {
+                    var base64 = Convert.ToBase64String(Model[i + j].Image);
+                    var imageSrc = string.Format("data:image/gif;base64,{0}", base64);
+
+                    <figure class="pokemon-figure">
+                        <img src="@imageSrc" scale="0" width="200" height="200"/>
+                        <br>#@Model[i + j].Id<br>
+                        <span class="pokemon-name">@Html.ActionLink(Model[i + j].Name, "Details", new {id = Model[i + j].Id})</span>
+                        <div class="abilities">
+                            @switch (Model[i + j].MainType)
+                            {
+                                case "Grass":
+                                    <span class="pill background-color-grass">Grass</span>
+                                    break;
+                                case "Poison":
+                                <span class="pill background-color-poison">Poison</span>
+                                    break;
+                                case "Fire":
+                                <span class="pill background-color-fire">Fire</span>
+                                    break;
+                                case "Flying":
+                                <span class="pill background-color-flying">Flying</span>
+                                    break;
+                                case "Water":
+                                <span class="pill background-color-water">Water</span>
+                                    break;
+                                case "Bug":
+                                <span class="pill background-color-bug">Bug</span>
+                                    break;
+                                case "Normal":
+                                <span class="pill background-color-normal">Normal</span>
+                                    break;
+                                case "Electric":
+                                <span class="pill background-color-electric">Electric</span>
+                                    break;
+                                case "Ground":
+                                <span class="pill background-color-ground">Ground</span>
+                                    break;
+                                case "Fairy":
+                                <span class="pill background-color-fairy">Fairy</span>
+                                    break;
+                                case "Fighting":
+                                <span class="pill background-color-fighting">Fighting</span>
+                                    break;
+                                case "Psychic":
+                                <span class="pill background-color-psychic">Psychic</span>
+                                    break;
+                                case "Rock":
+                                <span class="pill background-color-rock">Rock</span>
+                                    break;
+                                case "Steel":
+                                <span class="pill background-color-steel">Steel</span>
+                                    break;
+                                case "Ice":
+                                <span class="pill background-color-ice">Ice</span>
+                                    break;
+                                case "Ghost":
+                                <span class="pill background-color-ghost">Ghost</span>
+                                    break;
+                                case "Dragon":
+                                <span class="pill background-color-dragon">Dragon</span>
+                                    break;
+                            }
+                        </div>
+                        @if (!string.IsNullOrEmpty(Model[i + j].SecondaryType))
+                        {
+                            <div class="abilities">
+                                @switch (Model[i + j].SecondaryType)
+                                {
+                                    case "Grass":
+                                        <span class="pill background-color-grass">Grass</span>
+                                        break;
+                                    case "Poison":
+                                    <span class="pill background-color-poison">Poison</span>
+                                        break;
+                                    case "Fire":
+                                    <span class="pill background-color-fire">Fire</span>
+                                        break;
+                                    case "Flying":
+                                    <span class="pill background-color-flying">Flying</span>
+                                        break;
+                                    case "Water":
+                                    <span class="pill background-color-water">Water</span>
+                                        break;
+                                    case "Bug":
+                                    <span class="pill background-color-bug">Bug</span>
+                                        break;
+                                    case "Normal":
+                                    <span class="pill background-color-normal">Normal</span>
+                                        break;
+                                    case "Electric":
+                                    <span class="pill background-color-electric">Electric</span>
+                                        break;
+                                    case "Ground":
+                                    <span class="pill background-color-ground">Ground</span>
+                                        break;
+                                    case "Fairy":
+                                    <span class="pill background-color-fairy">Fairy</span>
+                                        break;
+                                    case "Fighting":
+                                    <span class="pill background-color-fighting">Fighting</span>
+                                        break;
+                                    case "Psychic":
+                                    <span class="pill background-color-psychic">Psychic</span>
+                                        break;
+                                    case "Rock":
+                                    <span class="pill background-color-rock">Rock</span>
+                                        break;
+                                    case "Steel":
+                                    <span class="pill background-color-steel">Steel</span>
+                                        break;
+                                    case "Ice":
+                                    <span class="pill background-color-ice">Ice</span>
+                                        break;
+                                    case "Ghost":
+                                    <span class="pill background-color-ghost">Ghost</span>
+                                        break;
+                                    case "Dragon":
+                                    <span class="pill background-color-dragon">Dragon</span>
+                                        break;
+                                }
+                            </div>
+                        }
+                    </figure>
+                }
+            </div>
+            <br />
+        }
+    </div>
+</body>
+</html>

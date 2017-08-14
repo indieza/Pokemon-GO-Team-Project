@@ -1,0 +1,59 @@
+﻿@model WebApp.ViewModels.ForumPostViewModel
+
+@{
+    ViewBag.Title = "Delete " + Model.ForumPost.Title;
+}
+<body class="striped-background">
+    <h2>Delete</h2>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.ForumPost.Title)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ForumPost.Title)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ForumPost.Body)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.ForumPost.Body)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ForumPost.Date)
+            </dt>
+
+            <dd>
+                @string.Format("{0}.{1}.{2}",
+                                    Model.ForumPost.Date.Day.ToString().PadLeft(2, '0'),
+                                    Model.ForumPost.Date.Month.ToString().PadLeft(2, '0'),
+                                    Model.ForumPost.Date.Year)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.GetUser().UserName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.GetUser().UserName)
+            </dd>
+
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color delete-post-button">
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </div>
+        }
+    </div>
+</body>

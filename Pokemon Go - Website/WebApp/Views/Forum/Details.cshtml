@@ -1,0 +1,114 @@
+﻿@model WebApp.ViewModels.ForumPostViewModel
+
+@{
+    ViewBag.Title = Model.ForumPost.Title;
+}
+
+<body class="striped-background">
+    <div class="left-part">
+        <button class="question-button" onclick="location.href='@Url.Action("Create", "Forum")'">+New Question</button>
+        <h1 style="text-align: center">Tags</h1>
+        <ul class="tags">
+            @{
+                int count = 0;
+                int max = 10;
+            }
+
+            @foreach (var tag in Model.ForumPost.Tags)
+            {
+                <li>@Html.ActionLink(tag.Name, "Index", new {tag = tag.Name})</li>
+                count++;
+                if (count >= max)
+                {
+                    break;
+                }
+            }
+        </ul>
+        @if (Model.ForumPost.Tags.Count == 0)
+        {
+            <span class="no-comments-tags no-tags">This post doesn't have tags.</span>
+        }
+    </div>
+    <div class="right-part">
+        <div class="table-padding">
+            <table class="table_legenda">
+                <tr>
+                    <th colspan="2" style="text-align: center">
+                        @Model.ForumPost.Title
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <span>
+                                [@Html.ActionLink("Edit", "Edit", new { id = Model.ForumPost.Id }) |
+                                @Html.ActionLink("Delete", "Delete", new { id = Model.ForumPost.Id })]
+                            </span>
+                        }
+                    </th>
+                </tr>
+                <tr>
+                    <td class="posted-on-by">
+                        <span><i>Posted by</i> @Model.GetUser().UserName</span>
+                    </td>
+                    <td class="posted-on-by">
+                        <span><i>Posted on</i> @string.Format("{0}.{1}.{2}",
+                                             Model.ForumPost.Date.Day.ToString().PadLeft(2, '0'),
+                                             Model.ForumPost.Date.Month.ToString().PadLeft(2, '0'),
+                                             Model.ForumPost.Date.Year)</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <p>
+                            @Model.ForumPost.Body
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h1>Comments</h1>
+        <hr style="width: 70%; border-width: 5px">
+        <button class="comment-button" onclick="location.href='@Url.Action("Create", "Comments", new {id = Model.ForumPost.Id})'">Comment</button>
+        @{
+            var comments = Model.GetCommentsAsViewModel();
+            comments = comments
+                .OrderByDescending(c => c.Comment.Date)
+                .ToList();
+        }
+
+        @foreach (var comment in comments)
+        {
+            <div class="table-padding comment-table">
+                <table class="table_legenda">
+                    <tr>
+                        <td class="posted-on-by">
+                            <span><i>Commented by</i> @comment.GetUser().UserName</span>
+                        </td>
+                        <td class="posted-on-by">
+                            <span><i>Commented on</i> @string.Format("{0}.{1}.{2}",
+                                                            comment.Comment.Date.Day.ToString().PadLeft(2, '0'),
+                                                            comment.Comment.Date.Month.ToString().PadLeft(2, '0'),
+                                                            comment.Comment.Date.Year)</span>
+                        </td>
+                    </tr>
+                    <tr class="comment-content">
+                        <td colspan="2">
+                            <p>
+                                @comment.Comment.Text
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <span>
+                                        [<a href="/Comments/Edit/@comment.Comment.Id">Edit</a> |
+                                        <a href="/Comments/Delete/@comment.Comment.Id">Delete</a>]
+                                    </span>
+                                }
+                            </p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        }
+        @if (comments.Count == 0)
+        {
+            <span class="no-comments-tags">There are no comments. Be the first one to comment on this post.</span>
+        }
+    </div>
+</body>
